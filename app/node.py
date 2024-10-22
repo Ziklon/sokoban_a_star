@@ -16,10 +16,14 @@ class Node:
         return self.heuristic < other.heuristic
 
     def __hash__(self):
-        return hash((self.player_pos, self.boxes))
+        return hash(self.identifier())
+    
+    def identifier(self):
+        return (self.player_pos, tuple(self.boxes))
 
     def __eq__(self, other):
-        return self.player_pos == other.player_pos and self.boxes == other.boxes
+        return self.player_pos == other.player_pos and\
+              self.boxes == other.boxes
 
     def __is_valid(self, maze, x, y):
         return 0 <= x < len(maze) and 0 <= y < len(maze[0]) and maze[x][y] != '#'
